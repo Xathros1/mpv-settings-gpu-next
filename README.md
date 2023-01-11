@@ -1,5 +1,5 @@
 # mpv-settings
-My personal config for MPV media player. This config uses by default gpu-api vulkan and vo=gpu-next and may not be suitable for your device. If you have any recommendations, just tell me, or just make a pull request.
+My personal config for MPV media player. This config uses by default gpu-api vulkan and vo=gpu-next and may not be suitable for your device. If you have any recommendations, just tell me or make a pull request. If I like it, I'll put it in.
 
 # Documentation
 Here goes all information about scripts and upscaler used. (WIP)
