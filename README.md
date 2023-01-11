@@ -55,3 +55,10 @@ Path:
 # Troubleshooting
 
 If you have issues, with my settings, create a new issue on this github page but please first go through the mpv.conf, most of it is self explanatory due to the comments. 
+
+# Credits
+- https://iamscum.wordpress.com/guides/videoplayback-guide/mpv-conf/
+- https://github.com/Tsubajashi/mpv-settings
+- https://github.com/xzpyth/mpv-config
+- https://kohana.fi/article/mpv-for-anime
+- https://github.com/classicjazz/mpv-config
