@@ -46,8 +46,9 @@ Flatpak:
 - SSimSuperRes.glsl: https://gist.github.com/igv/2364ffa6e81540f29cb7ab4c9bc05b6b
 - SSimDownscaler.glsl: https://gist.github.com/igv/36508af3ffc84410fe39761d6969be10
 - KrigBilateral.glsl: https://gist.github.com/igv/a015fc885d5c22e6891820ad89555637
-- ravu-zoom-r3.hook: https://github.com/bjin/mpv-prescalers
+- ravu-zoom-r3/r4.hook: https://github.com/bjin/mpv-prescalers
 - adaptive-sharpen.glsl: https://gist.github.com/igv/8a77e4eb8276753b54bb94c1c50c317e
+- FSR.glsl: https://gist.github.com/agyild/82219c545228d70c5604f865ce0b0ce5  
 
 #### Comparison: https://artoriuz.github.io/blog/mpv_upscaling.html
 
