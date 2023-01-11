@@ -31,10 +31,12 @@ Path:
 /USERNAME/.config/mpv
 
 ## LINUX INSTALLATION
-Path:
-/home/user/.config/mpv
 
-/user/ is always the name of the user who wants to use mpv.
+Path:
+~/.config/mpv
+
+Flatpak:
+~/.var/app/io.mpv.Mpv/config/mpv
 
 
 # Documentation (WIP)
