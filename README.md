@@ -1,8 +1,5 @@
 # mpv-settings
-my settings for MPV (Windows/Mac/Linux Compatible)
-
-might not be suitable for your pc, but if you have any recommendations, just tell me, 
-or just make a pull request. If i like it, i put it in.
+My personal config for MPV media player. This config uses by default gpu-api vulkan and vo=gpu-next and may not be suitable for your device. If you have any recommendations, just tell me, or just make a pull request.
 
 # Documentation
 Here goes all information about scripts and upscaler used. (WIP)
@@ -40,10 +37,6 @@ The root directory needs to look like this (Should be considered a Tree View exa
 >>>scripts
 
 >>>fonts
-
-you need to rename the proper config you want to use to mpv.conf.
-
-example: mpv-windows.conf -> mpv.conf
 
 # WINDOWS INSTALLATION
 > "C:\Users\ %Username% \AppData\Roaming\mpv"
