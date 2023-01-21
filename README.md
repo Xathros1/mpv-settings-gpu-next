@@ -1,5 +1,5 @@
 # mpv-settings-gpu-next
-My personal config for MPV media player. This config uses by default gpu-api vulkan and vo=gpu-next and may not be suitable for your device. If you have any recommendations, just tell me or make a pull request. If I like it, I'll put it in.
+My personal config for MPV media player. This config uses by default gpu-api vulkan and vo=gpu-next and may not be suitable for your device. If you have any recommendations, just get in touch with me (Discussions) or create a pull request.
 
 # Installation
 Depending on your Operating System, you need to place the stuff inside the zip in a certain directory.
