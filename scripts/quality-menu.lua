@@ -1,4 +1,4 @@
--- quality-menu 3.0.1 - 2022-Dec-11
+-- quality-menu 3.0.2 - 2023-Jan-10
 -- https://github.com/christoph-heinrich/mpv-quality-menu
 --
 -- Change the stream video and audio quality on the fly.
@@ -104,7 +104,7 @@ local opts = {
     --language, format, format_note, quality
     --
     --columns that are derived from the above, but with special treatment:
-    --frame_rate, bitrate_total, bitrate_video, bitrate_audio,
+    --size, frame_rate, bitrate_total, bitrate_video, bitrate_audio,
     --codec_video, codec_audio, audio_sample_rate
     --
     --If those still aren't enough or you're just curious, run:
