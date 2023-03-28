@@ -46,24 +46,17 @@ Flatpak:
 - SSimSuperRes.glsl: https://gist.github.com/igv/2364ffa6e81540f29cb7ab4c9bc05b6b
 - SSimDownscaler.glsl: https://gist.github.com/igv/36508af3ffc84410fe39761d6969be10
 - KrigBilateral.glsl: https://gist.github.com/igv/a015fc885d5c22e6891820ad89555637
-- ravu-zoom-r3/r4.hook: https://github.com/bjin/mpv-prescalers
-- adaptive-sharpen.glsl: https://gist.github.com/igv/8a77e4eb8276753b54bb94c1c50c317e
-- FSR.glsl: https://gist.github.com/agyild/82219c545228d70c5604f865ce0b0ce5  
 
 #### Comparison: https://artoriuz.github.io/blog/mpv_upscaling.html
 
 ## List of Scripts used:
-
-- Mac_Integration.lua - This script enables a few shortcuts which Mac users are familiar with. See scripts/Mac_Integration.lua for more infos.
-- acompressor.lua - a simple audio compression script which can normalize your audio of the files played with mpv. See scripts/acompressor.lua for more infos.
-- appendURL.lua - when mpv is opened, you can copy paste a URL in to play from.
-- audio-osc.lua - different on screen controls for audio-only playback.
+- acompressor.lua - Dynamic range compressor using acompressor ffmpeg filter with controls to dynamically adjust parameters.
+- autocrop.lua - Automatically crop the video by using lavfi's cropdetect filter to detect black bars.
 - autoload.lua - preloads all files in a folder into a playlist.
-- seek-to.lua - when "t" is pressed, you can seek to a specific part of the video/audio you are currently watching.
-- webm.lua - Simple WebM maker for mpv. By default, the script is activated by the W (shift+w) key.
-- playlistmanager.lua - This script allows you to see and interact with your playlist in an intuitive way. SHIFT+ENTER = playlist
-- quality-menu.lua - Allows you to change the streamed video and audio quality (ytdl-format) on the fly. Simply open the video or audio menu, select your prefered format and confirm your choice. The keybindings for opening the menus are configured in input.conf, and everthing else is configured in quality-menu.conf. By default: List Video Formats: F (shift+f), List Audio Formats: Alt+f, Reload: Ctrl+r. 
+- pause-when-minimize.lua - Pauses the player video when minimizing, and unpauses it when brought up again.
+- quality-menu.lua - Allows you to change the streamed video and audio quality (ytdl-format) on the fly. 
 - quality-menu-osc.lua - enables UI integration for default OSC
+- status-line.lua - Rebuild the terminal status line as a lua script
 
 # Troubleshooting
 
