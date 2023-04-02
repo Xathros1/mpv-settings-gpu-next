@@ -53,7 +53,9 @@ Flatpak:
 - acompressor.lua - Dynamic range compressor using acompressor ffmpeg filter with controls to dynamically adjust parameters.
 - autocrop.lua - Automatically crop the video by using lavfi's cropdetect filter to detect black bars. Press 'C' (Shift+c) to activate.
 - autoload.lua - preloads all files in a folder into a playlist.
+- auto-save-state.lua - Periodically saves progress with write-watch-later-config, and also cleans up the watch later data after the file is finished playing (so playlists may continue at the correct file).
 - pause-when-minimize.lua - Pauses the player video when minimizing, and unpauses it when brought up again.
+- playlistmanager.lua - This script allows you to see and interact with your playlist in an intuitive way.
 - quality-menu.lua - Allows you to change the streamed video and audio quality (ytdl-format) on the fly. 
 - quality-menu-osc.lua - enables UI integration for default OSC
 - status-line.lua - Rebuild the terminal status line as a lua script
