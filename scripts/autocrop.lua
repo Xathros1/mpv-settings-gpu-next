@@ -65,7 +65,7 @@ require "mp.msg"
 require 'mp.options'
 
 local options = {
-    auto = true,
+    auto = false,
     auto_delay = 4,
     detect_limit = "24/255",
     detect_round = 2,
