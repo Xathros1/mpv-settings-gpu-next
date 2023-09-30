@@ -45,7 +45,7 @@ Flatpak:
 - RAVU: https://github.com/bjin/mpv-prescalers
 - SSimSuperRes: https://gist.github.com/igv/2364ffa6e81540f29cb7ab4c9bc05b6b
 - SSimDownscaler: https://gist.github.com/igv/36508af3ffc84410fe39761d6969be10
-- cflmix: https://github.com/Artoriuz/glsl-chroma-from-luma-prediction
+- GLSL Chroma from Luma (CfL) Prediction: https://github.com/Artoriuz/glsl-chroma-from-luma-prediction
 
 #### Comparison: https://artoriuz.github.io/blog/mpv_upscaling.html
 
