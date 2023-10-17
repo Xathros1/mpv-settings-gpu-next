@@ -31,20 +31,17 @@
 
 vec4 hook() {
     float factor = ceil(LUMA_size.x / HOOKED_size.x);
-    int start = int(ceil(-factor - 0.5));
-    int end = int(floor(factor - 0.5));
-    float filter_end = float(end) + 1.5;
+    int start = int(ceil(-factor / 2.0 - 0.5));
+    int end = int(floor(factor / 2.0 - 0.5));
 
     float output_luma = 0.0;
-    float wt = 0.0;
+    int wt = 0;
     for (int dx = start; dx <= end; dx++) {
-        float luma_pix = LUMA_texOff(vec2(dx + 0.5, 0.0)).x;
-        float wd = smoothstep(0.0, filter_end, filter_end - length(vec2(dx + 0.5, 0.0)));
-        output_luma += luma_pix * wd;
-        wt += wd;
+        output_luma += linearize(LUMA_texOff(vec2(dx + 0.5, 0.0))).x;
+        wt++;
     }
-    vec4 output_pix = vec4(output_luma / wt, 0.0, 0.0, 1.0);
-    return output_pix;
+    vec4 output_pix = vec4(output_luma / float(wt), 0.0, 0.0, 1.0);
+    return delinearize(output_pix);
 }
 
 //!HOOK CHROMA
@@ -58,20 +55,17 @@ vec4 hook() {
 
 vec4 hook() {
     float factor = ceil(LUMA_LOWRES_size.y / HOOKED_size.y);
-    int start = int(ceil(-factor - 0.5));
-    int end = int(floor(factor - 0.5));
-    float filter_end = float(end) + 1.5;
+    int start = int(ceil(-factor / 2.0 - 0.5));
+    int end = int(floor(factor / 2.0 - 0.5));
 
     float output_luma = 0.0;
-    float wt = 0.0;
+    int wt = 0;
     for (int dy = start; dy <= end; dy++) {
-        float luma_pix = LUMA_LOWRES_texOff(vec2(0.0, dy + 0.5)).x;
-        float wd = smoothstep(0.0, filter_end, filter_end - length(vec2(0.0, dy + 0.5)));
-        output_luma += luma_pix * wd;
-        wt += wd;
+        output_luma += linearize(LUMA_LOWRES_texOff(vec2(0.0, dy + 0.5))).x;
+        wt++;
     }
-    vec4 output_pix = vec4(output_luma / wt, 0.0, 0.0, 1.0);
-    return output_pix;
+    vec4 output_pix = vec4(output_luma / float(wt), 0.0, 0.0, 1.0);
+    return delinearize(output_pix);
 }
 
 //!HOOK CHROMA
@@ -92,6 +86,7 @@ float comp_wd(vec2 distance) {
 }
 
 vec4 hook() {
+    float ar_strength = 0.75;
     float division_limit = 1e-4;
 
     vec4 output_pix = vec4(0.0, 0.0, 0.0, 1.0);
@@ -101,6 +96,51 @@ vec4 hook() {
     vec2 fp = floor(pp);
     pp -= fp;
 
+#ifdef HOOKED_gather
+    vec4 chroma_quads[4][2];
+    chroma_quads[0][0] = HOOKED_gather(vec2((fp + vec2(0.0, 0.0)) * HOOKED_pt), 0);
+    chroma_quads[1][0] = HOOKED_gather(vec2((fp + vec2(2.0, 0.0)) * HOOKED_pt), 0);
+    chroma_quads[2][0] = HOOKED_gather(vec2((fp + vec2(0.0, 2.0)) * HOOKED_pt), 0);
+    chroma_quads[3][0] = HOOKED_gather(vec2((fp + vec2(2.0, 2.0)) * HOOKED_pt), 0);
+    chroma_quads[0][1] = HOOKED_gather(vec2((fp + vec2(0.0, 0.0)) * HOOKED_pt), 1);
+    chroma_quads[1][1] = HOOKED_gather(vec2((fp + vec2(2.0, 0.0)) * HOOKED_pt), 1);
+    chroma_quads[2][1] = HOOKED_gather(vec2((fp + vec2(0.0, 2.0)) * HOOKED_pt), 1);
+    chroma_quads[3][1] = HOOKED_gather(vec2((fp + vec2(2.0, 2.0)) * HOOKED_pt), 1);
+
+    vec4 luma_quads[4];
+    luma_quads[0] = LUMA_LOWRES_gather(vec2((fp + vec2(0.0, 0.0)) * HOOKED_pt), 0);
+    luma_quads[1] = LUMA_LOWRES_gather(vec2((fp + vec2(2.0, 0.0)) * HOOKED_pt), 0);
+    luma_quads[2] = LUMA_LOWRES_gather(vec2((fp + vec2(0.0, 2.0)) * HOOKED_pt), 0);
+    luma_quads[3] = LUMA_LOWRES_gather(vec2((fp + vec2(2.0, 2.0)) * HOOKED_pt), 0);
+
+    vec2 chroma_pixels[12];
+    chroma_pixels[0]  = vec2(chroma_quads[0][0].z, chroma_quads[0][1].z);
+    chroma_pixels[1]  = vec2(chroma_quads[1][0].w, chroma_quads[1][1].w);
+    chroma_pixels[2]  = vec2(chroma_quads[0][0].x, chroma_quads[0][1].x);
+    chroma_pixels[3]  = vec2(chroma_quads[0][0].y, chroma_quads[0][1].y); 
+    chroma_pixels[4]  = vec2(chroma_quads[1][0].x, chroma_quads[1][1].x);
+    chroma_pixels[5]  = vec2(chroma_quads[1][0].y, chroma_quads[1][1].y);
+    chroma_pixels[6]  = vec2(chroma_quads[2][0].w, chroma_quads[2][1].w);
+    chroma_pixels[7]  = vec2(chroma_quads[2][0].z, chroma_quads[2][1].z);
+    chroma_pixels[8]  = vec2(chroma_quads[3][0].w, chroma_quads[3][1].w);
+    chroma_pixels[9]  = vec2(chroma_quads[3][0].z, chroma_quads[3][1].z);
+    chroma_pixels[10] = vec2(chroma_quads[2][0].y, chroma_quads[2][1].y);
+    chroma_pixels[11] = vec2(chroma_quads[3][0].x, chroma_quads[3][1].x);
+
+    float luma_pixels[12];
+    luma_pixels[0]  = luma_quads[0].z;
+    luma_pixels[1]  = luma_quads[1].w;
+    luma_pixels[2]  = luma_quads[0].x;
+    luma_pixels[3]  = luma_quads[0].y;
+    luma_pixels[4]  = luma_quads[1].x;
+    luma_pixels[5]  = luma_quads[1].y;
+    luma_pixels[6]  = luma_quads[2].w;
+    luma_pixels[7]  = luma_quads[2].z;
+    luma_pixels[8]  = luma_quads[3].w;
+    luma_pixels[9]  = luma_quads[3].z;
+    luma_pixels[10] = luma_quads[2].y;
+    luma_pixels[11] = luma_quads[3].x;
+#else
     vec2 chroma_pixels[12];
     chroma_pixels[0]  = HOOKED_tex(vec2((fp + vec2(0.5, -0.5)) * HOOKED_pt)).xy;
     chroma_pixels[1]  = HOOKED_tex(vec2((fp + vec2(1.5, -0.5)) * HOOKED_pt)).xy;
@@ -128,6 +168,7 @@ vec4 hook() {
     luma_pixels[9]  = LUMA_LOWRES_tex(vec2((fp + vec2( 2.5, 1.5)) * HOOKED_pt)).x;
     luma_pixels[10] = LUMA_LOWRES_tex(vec2((fp + vec2( 0.5, 2.5)) * HOOKED_pt)).x;
     luma_pixels[11] = LUMA_LOWRES_tex(vec2((fp + vec2( 1.5, 2.5)) * HOOKED_pt)).x;
+#endif
 
     vec2 chroma_min = vec2(1e8);
     chroma_min = min(chroma_min, chroma_pixels[3]);
@@ -166,7 +207,7 @@ vec4 hook() {
     }
 
     vec2 chroma_spatial = ct / wt;
-    chroma_spatial = mix(chroma_spatial, clamp(chroma_spatial, chroma_min, chroma_max), 0.75);
+    chroma_spatial = mix(chroma_spatial, clamp(chroma_spatial, chroma_min, chroma_max), ar_strength);
 
     float luma_avg_12 = 0.0;
     for(int i = 0; i < 12; i++) {
@@ -243,8 +284,7 @@ vec4 hook() {
 #else
     output_pix.xy = chroma_pred_12;
 #endif
-    // Replace this with chroma_min and chroma_max if you want AR
-    // output_pix.yz = clamp(output_pix.yz, chroma_min, chroma_max);
+    // output_pix.xy = mix(output_pix.xy, clamp(output_pix.xy, chroma_min, chroma_max), ar_strength);
     output_pix.xy = clamp(output_pix.xy, 0.0, 1.0);
     return  output_pix;
 }
