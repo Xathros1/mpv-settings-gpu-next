@@ -6,7 +6,7 @@ Depending on your Operating System, you need to place the stuff inside the zip i
 The root directory needs to look like this (Should be considered a Tree View example):
 
 
->Roaming
+>Roaming (Windows only)
 
 >>mpv
 
@@ -21,7 +21,6 @@ The root directory needs to look like this (Should be considered a Tree View exa
 >>>fonts
 
 >>>scripts
->>>>sponsorblock_shared
 
 ## WINDOWS INSTALLATION
 > "C:\Users\ %Username% \AppData\Roaming\mpv"
@@ -58,7 +57,7 @@ Flatpak:
 - quality-menu.lua - Allows you to change the streamed video and audio quality (ytdl-format) on the fly. 
 - quality-menu-osc.lua - enables UI integration for default OSC
 - status-line.lua - Rebuild the terminal status line as a lua script
-- sponsorblock.lua - A fully-featured port of SponsorBlock for mpv. Play a YouTube video, sponsors will be skipped automatically.
+- sponsorblock_minimal.lua - A simple version of the sponsorblock mpv plugin.
 
 # Troubleshooting
 
